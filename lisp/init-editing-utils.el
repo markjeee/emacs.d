@@ -67,9 +67,8 @@
 
 
 
-;;; Newline behaviour
+;;; Newline behaviour (see also electric-indent-mode, enabled above)
 
-(global-set-key (kbd "RET") 'newline-and-indent)
 (defun sanityinc/newline-at-end-of-line ()
   "Move to end of line, enter a newline, and reindent."
   (interactive)
@@ -93,7 +92,7 @@
 
 (when (boundp 'display-fill-column-indicator)
   (setq-default indicate-buffer-boundaries 'left)
-  (setq-default display-fill-column-indicator-character ?\u254e)
+  (setq-default display-fill-column-indicator-character ?┊)
   (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode))
 
 
@@ -144,6 +143,9 @@
 
 
 ;;; Handy key bindings
+
+(with-eval-after-load 'help
+  (define-key help-map "A" 'describe-face))
 
 (global-set-key (kbd "C-.") 'set-mark-command)
 (global-set-key (kbd "C-x C-.") 'pop-global-mark)
