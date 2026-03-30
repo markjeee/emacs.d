@@ -15,10 +15,13 @@
 
 ;;; Standard package repositories
 
-(add-to-list 'package-archives '( "melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-unsigned-archives "melpa")
 ;; Official MELPA Mirror, in case necessary.
 ;;(add-to-list 'package-archives (cons "melpa-mirror" (concat proto "://www.mirrorservice.org/sites/melpa.org/packages/")) t)
 
+;; Allow built-in packages to be upgraded
+(setq package-install-upgrade-built-in t)
 
 
 ;; Work-around for https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
@@ -63,6 +66,7 @@ locate PACKAGE."
 ;;; Fire up package.el
 
 (setq package-enable-at-startup nil)
+(setq package-native-compile t)
 (package-initialize)
 
 
@@ -107,10 +111,6 @@ advice for `require-package', to which ARGS are passed."
             (lambda ()
               (package--save-selected-packages
                (seq-uniq (append sanityinc/required-packages package-selected-packages))))))
-
-
-(require-package 'fullframe)
-(fullframe list-packages quit-window)
 
 
 (let ((package-check-signature nil))
